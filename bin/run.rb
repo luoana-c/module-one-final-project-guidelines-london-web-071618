@@ -12,7 +12,10 @@ def run
     user_input = gets.downcase.strip
     case user_input
     when "sign in"
-      sign_in
+      puts "Please enter your user name"
+      user_name = gets.chomp.downcase
+      sign_in(user_name)
+      enter_address
     when "sign up"
       sign_up
     when "exit"
