@@ -19,4 +19,8 @@ class BikeStation < ActiveRecord::Base
     self.bike_station_status["nbEmptyDocks"][0]
   end
 
+  def self.find_station_by_name(station_name)
+    self.all.find{|station| station.name == station_name}
+  end
+
 end

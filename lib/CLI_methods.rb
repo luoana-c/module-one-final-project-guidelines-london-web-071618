@@ -12,7 +12,7 @@ def sign_up
     puts "User name already exists, please choose a different one or sign in."
   else
     User.create(:name => user_name)
-    puts "User #{user_name} has been created."
+    puts "User #{user_name} has been created. Please sign in now."
   end
 end
 
@@ -25,14 +25,20 @@ def sign_in(user_name)
   end
 end
 
+
 def enter_address(user)
-  puts "please enter an address"
   user_address = gets.chomp.downcase
-  address = Address.all.find {|address| address.address == user_address}
+  user_addresses =Address.all.select{|address| address.user_id == user.id}
+  address = user_addresses.find {|address| address.address == user_address}
   if !address
     address = Address.create(address: user_address, user_id: user.id)
   end
-  puts address.distance_to.name
+  address
+  # address = Address.all.find {|address| address.address == user_address}
+  # if !address
+  #   address = Address.create(address: user_address, user_id: user.id)
+  # end
+  # address
 end
 
 def exit
