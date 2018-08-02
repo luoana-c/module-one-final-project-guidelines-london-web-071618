@@ -14,8 +14,9 @@ def run
     when "sign in"
       puts "Please enter your user name"
       user_name = gets.chomp.downcase
-      sign_in(user_name)
-      enter_address
+      user = sign_in(user_name)
+      
+      enter_address(user)
     when "sign up"
       sign_up
     when "exit"

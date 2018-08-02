@@ -25,12 +25,12 @@ def sign_in(user_name)
   end
 end
 
-def enter_address
+def enter_address(user)
   puts "please enter an address"
   user_address = gets.chomp.downcase
   address = Address.all.find {|address| address.address == user_address}
   if !address
-    address = Address.create(address: user_address, user_id: sign_in.id)
+    address = Address.create(address: user_address, user_id: user.id)
   end
   puts address.distance_to.name
 end

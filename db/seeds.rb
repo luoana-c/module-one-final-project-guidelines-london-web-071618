@@ -1,4 +1,5 @@
 require 'xmlsimple'
+
 BikeStation.delete_all
 
  hash = XmlSimple.xml_in('livecyclehireupdates.xml')
