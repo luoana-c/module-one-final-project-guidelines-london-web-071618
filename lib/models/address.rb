@@ -12,7 +12,7 @@ class Address < ActiveRecord::Base
 
   def distances_to_all_bike_stations
     #this calculates distance from address to each bike station and returns array of distances
-    BikeStation.all.map {|bike_station| Geocoder::Calculations.distance_between(convert_address_to_coordinates, [bike_station.lat,bike_station.long])}
+      BikeStation.all.map {|bike_station| Geocoder::Calculations.distance_between(convert_address_to_coordinates, [bike_station.lat,bike_station.long])}
   end
 
   def distance_to_nearest_bike_station
@@ -26,12 +26,16 @@ class Address < ActiveRecord::Base
     BikeStation.all.find {|bike_station| Geocoder::Calculations.distance_between(convert_address_to_coordinates, [bike_station.lat,bike_station.long]) == distance}
   end
 
+  def distance_to_nearest_three_bike_stations
+    distances = distances_to_all_bike_stations.sort.shift(3)
+  end
   def nearest_three_bike_stations
     #returns an array of 3 bike station instances
-    ordered_dist = distances_to_all_bike_stations.sort.shift(3)
+    ordered_dist = distance_to_nearest_three_bike_stations
     ordered_dist.map {|dist| find_bike_station(dist)}
   end
+
   def names_of_nearest3bike_stations
-    nearest_three_bike_stations.each_with_index {|station, index| puts "#{index + 1}. #{station.name}"}
+    nearest_three_bike_stations.map {|station|  station.name}
   end
 end

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   def all_addresses_for_user
 
     address_instances = Address.all.select{|address| address.user_id == self.id}
-    address_instances.each{|address| puts address.address}
+    address_instances.each{|address| puts Rainbow(address.address).green}
   end
 
   def add_address_for_user(new_address)
